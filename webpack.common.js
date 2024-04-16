@@ -19,25 +19,28 @@ module.exports = {
         exclude: /(node_modules)/,
         loader: 'babel-loader', // 'babel-loader' is also a valid name to reference
       },
-      { test: /\.css$/, loader: 'style-loader!css-loader' },
+      { test: /\.css$/, use: ['style-loader', 'css-loader'] },
       {
         test: /\.scss$/,
-        loaders: ['style-loader', 'css-loader', 'sass-loader'],
+        use: ['style-loader', 'css-loader', 'sass-loader'],
       },
-      { test: /\.(png|jpg|)$/, loader: 'url-loader?limit=200000' },
+      { test: /\.(png|jpg|)$/, use: { loader: 'url-loader', options: { limit: 200000 } }},
       {
         test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        loader: 'url-loader?limit=10000&minetype=application/font-woff',
+        use: [{ loader: 'url-loader', options: { limit: 10000, minetype: 'application/font-woff' }}],
       },
       {
         test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        loader: 'file-loader',
+        use: 'file-loader',
       },
       {
         test: /node_modules\/(pdfkit|fontkit|png-js|linebreak|unicode-properties|brotli)\//,
-        loader: 'transform-loader?brfs',
+        use: [{ loader: 'transform-loader', options: { brfs: true }}],
       },
-      { test: /node_modules\/unicode-properties.*\.json$/, use: 'json-loader' },
+      {
+        test: /node_modules\/unicode-properties.*\.json$/,
+        use: [{ loader: 'json-loader' }]
+      }
     ],
   },
   externals: [
@@ -68,6 +71,6 @@ module.exports = {
       },
     },
   ],
-  plugins: [new CleanWebpackPlugin(), new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)],
+  plugins: [new CleanWebpackPlugin(), new webpack.IgnorePlugin({ resourceRegExp: /^\.\/locale$/, contextRegExp: /moment$/ })],
   devtool: 'source-map',
 };

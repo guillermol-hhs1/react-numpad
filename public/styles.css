@@ -1,0 +1,10 @@
+html {
+  font-size: 30px;
+}
+
+/* NumPad Styles */
+.MuiPaper-root {
+  width: 400px !important;
+  height: 550px !important;
+  font-size: 1.5rem !important;
+}
