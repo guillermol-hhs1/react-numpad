@@ -6,10 +6,11 @@ export default {
 
 export const Primary = {
   args: {
-    onChange: () => {},
+    onChange: (e) => {console.log(e)},
     placeholder: 'Ex 12346',
     decimal: 0,
     negative: false,
+    position: 'center',
     theme: {
       header: {
         primaryColor: '#263238',
